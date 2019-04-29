@@ -4,6 +4,8 @@
 
 package pl.piechocki.po.UI;
 
+import pl.piechocki.po.Game;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -15,7 +17,11 @@ public class UIWindow extends JFrame {
     private int WINDOW_HEIGHT = 720;
     private int WINDOW_WIDTH = 1280;
 
-    public UIWindow() {
+    private UISquareBoard board;
+    private UIInfo panel;
+    private UINotifications notifications;
+
+    public UIWindow(boolean square, int x, int y) {
         // window properties
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setTitle(WINDOW_TITLE);
@@ -24,11 +30,12 @@ public class UIWindow extends JFrame {
         // background colour
         getContentPane().setBackground(Color.lightGray);
 
-        UISquareBoard board = new UISquareBoard();
+        if (square)
+            board = new UISquareBoard(x, y);
 
-        UIInfo panel = new UIInfo();
+        panel = new UIInfo();
 
-        UINotifications notifications = new UINotifications();
+        notifications = new UINotifications();
 
         add(board, BorderLayout.CENTER);
         add(panel, BorderLayout.EAST);
@@ -36,5 +43,17 @@ public class UIWindow extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+    }
+
+    public void setButtons() {
+        for (int y = 0; y < board.rows; y++) {
+            for (int x = 0; x < board.cols; x++) {
+                board.buttons[x][y].setBackground(Color.white);
+            }
+        }
+    }
+
+    public void setListeners(Game game) {
+        panel.turn_button.addMouseListener(game);
     }
 }

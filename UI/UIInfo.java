@@ -8,10 +8,14 @@ import javax.swing.*;
 import java.awt.*;
 
 class UIInfo extends JPanel {
+    JButton turn_button;
 
     UIInfo() {
         setBackground(new Color(0,0,0,0));
 
-        add(new JButton("Hello"), BorderLayout.CENTER);
+        turn_button = new JButton("Nowa tura");
+        turn_button.setName("turn");
+
+        add(turn_button);
     }
 }

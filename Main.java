@@ -4,11 +4,9 @@
 
 package pl.piechocki.po;
 
-import pl.piechocki.po.UI.*;
-
 
 public class Main {
     public static void main(String[] args) {
-        UIWindow window = new UIWindow();
+        Game game = new Game();
     }
 }
