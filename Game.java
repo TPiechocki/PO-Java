@@ -4,6 +4,7 @@
 
 package pl.piechocki.po;
 
+import pl.piechocki.po.Organisms.Animals.Sheep;
 import pl.piechocki.po.World.SquareWorld;
 import pl.piechocki.po.World.World;
 
@@ -20,6 +21,8 @@ public class Game implements MouseListener {
     Game() {
         world = new SquareWorld(20, 20);
         world.setListeners(this);
+
+        world.addOrganism(new Sheep(0,0, world));
 
         world.displayWorld();
     }

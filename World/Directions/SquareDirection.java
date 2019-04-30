@@ -4,6 +4,8 @@
 
 package pl.piechocki.po.World.Directions;
 
+import java.util.Random;
+
 public enum SquareDirection implements Directions {
     NORTH(0,-1),        // 0
     EAST(1,0),          // 1
@@ -34,6 +36,20 @@ public enum SquareDirection implements Directions {
             return 0;
     }
 
+    @Override
+    public Directions intToDirection(int x) {
+        switch (x) {
+            case 0:
+                return NORTH;
+            case 1:
+                return EAST;
+            case 2:
+                return SOUTH;
+            case 3:
+                return WEST;
+        }
+        return NONE;
+    }
 
 
     @Override
@@ -68,6 +84,11 @@ public enum SquareDirection implements Directions {
     @Override
     public Directions defaultDirection() {
         return NORTH;
+    }
+
+    @Override
+    public Directions randomDirection() {
+        return intToDirection(new Random().nextInt(4));
     }
 
 

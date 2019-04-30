@@ -10,6 +10,8 @@ public interface Directions {
      */
     int toInt();
 
+    Directions intToDirection(int x);
+
     int getNumberOfDirections();
 
     int getX();
@@ -22,4 +24,6 @@ public interface Directions {
     Directions getNextDirection();
 
     Directions defaultDirection();
+
+    Directions randomDirection();
 }
