@@ -5,6 +5,7 @@
 package pl.piechocki.po.UI;
 
 import pl.piechocki.po.Game;
+import pl.piechocki.po.World.Field.Field;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,10 +46,13 @@ public class UIWindow extends JFrame {
         setVisible(true);
     }
 
-    public void setButtons() {
+    /**
+     * Draw fields with proper colouring
+     */
+    public void drawFields(Field[][] fields) {
         for (int y = 0; y < board.rows; y++) {
             for (int x = 0; x < board.cols; x++) {
-                board.buttons[x][y].setBackground(Color.white);
+                board.buttons[x][y].setBackground(fields[x][y].color());
             }
         }
     }

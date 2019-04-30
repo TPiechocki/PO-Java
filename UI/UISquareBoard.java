@@ -32,6 +32,7 @@ class UISquareBoard extends JPanel {
                 int left = GRID_BORDER;
                 int right = GRID_BORDER;
 
+                // set outer border thicker to maintain proper thickness
                 if (i == 0)
                     left *= 2;
                 if (i == cols-1)
