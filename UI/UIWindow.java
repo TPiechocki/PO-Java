@@ -9,6 +9,7 @@ import pl.piechocki.po.World.Field.Field;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.LinkedList;
 
 public class UIWindow extends JFrame {
 
@@ -36,7 +37,7 @@ public class UIWindow extends JFrame {
 
         panel = new UIInfo();
 
-        notifications = new UINotifications();
+        notifications = new UINotifications(this);
 
         add(board, BorderLayout.CENTER);
         add(panel, BorderLayout.EAST);
@@ -55,6 +56,10 @@ public class UIWindow extends JFrame {
                 board.buttons[x][y].setBackground(fields[x][y].color());
             }
         }
+    }
+
+    public void displayNotification(LinkedList<String> msg) {
+        notifications.renderNotifications(msg);
     }
 
     public void setListeners(Game game) {

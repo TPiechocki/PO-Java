@@ -40,4 +40,8 @@ public interface World {
      * @return field with given coordinates
      */
     Field getField(int x, int y);
+
+    void addNotification(String str);
+
+    void addPriorityNotification(String str);
 }

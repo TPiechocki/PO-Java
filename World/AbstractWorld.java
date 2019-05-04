@@ -11,12 +11,15 @@ import pl.piechocki.po.World.Field.Field;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 
 public abstract class AbstractWorld implements World {
     int x_size, y_size;
     UIWindow window;
-    ArrayList<AbstractOrganism> entities;
+    private ArrayList<AbstractOrganism> entities;
     Field[][] fields;
+
+    LinkedList<String> notifications;
 
 
     //INIT
@@ -24,9 +27,9 @@ public abstract class AbstractWorld implements World {
         this.x_size = x_size;
         this.y_size = y_size;
         entities = new ArrayList<>();
+
+        notifications = new LinkedList<>();
     }
-
-
     @Override
     public void setNeighbours() {
         for (int j = 0; j < y_size; j++) {
@@ -35,7 +38,6 @@ public abstract class AbstractWorld implements World {
             }
         }
     }
-
     @Override
     public void setListeners(Game game) {
         window.setListeners(game);
@@ -45,13 +47,18 @@ public abstract class AbstractWorld implements World {
     // REST
     @Override
     public void makeTurn() {
-        Collections.sort(entities);
+        clearNotifications();
 
+        addNotification("Nowa tura");
+        addNotification("Test");
+
+        Collections.sort(entities);
         for (AbstractOrganism org : entities) {
             org.action();
         }
 
         displayWorld();
+        window.displayNotification(notifications);
     }
 
     @Override
@@ -75,5 +82,19 @@ public abstract class AbstractWorld implements World {
     @Override
     public Field getField(int x, int y) {
         return fields[x][y];
+    }
+
+
+    // NOTIFICATIONS
+    private void clearNotifications() {
+        notifications.clear();
+    }
+    @Override
+    public void addNotification(String str) {
+        notifications.addLast(str);
+    }
+    @Override
+    public void addPriorityNotification(String str) {
+        notifications.addFirst(str);
     }
 }
