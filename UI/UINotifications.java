@@ -34,20 +34,18 @@ class UINotifications extends JPanel  implements Runnable {
     public void run() {
         try {
             while (!(messages.isEmpty()) && !finishWork){
-                System.out.println(messages.getFirst());
                 notif.setText(messages.removeFirst());
 
                 Thread.sleep(2000);
             }
+            notif.setText("");
         } catch (InterruptedException e) {
-            System.out.println("Thread stopped");
             finishWork = false;
-            // empty
+            notif.setText("");
         }
     }
 
-    @SuppressWarnings("unchecked")
-    void renderNotifications(LinkedList<String> msg) {
+    void stopNotifications() {
         if (worker != null && worker.isAlive()) {
             finishWork = true;
             worker.interrupt();
@@ -55,8 +53,12 @@ class UINotifications extends JPanel  implements Runnable {
                 Thread.onSpinWait();
             }
         }
+    }
 
-        messages = (LinkedList<String>) msg.clone();
+    void renderNotifications(LinkedList<String> msg) {
+        stopNotifications();
+
+        messages = msg;
 
         worker = new Thread(this, threadName);
         worker.start();

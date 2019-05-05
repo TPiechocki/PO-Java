@@ -48,13 +48,21 @@ public abstract class AbstractWorld implements World {
     @Override
     public void makeTurn() {
         clearNotifications();
+        int max = entities.size();
 
-        addNotification("Nowa tura");
-        addNotification("Test");
-
+        // Sort and do actino for living organisms. New ones will be added at the end and their action will be skipped.
         Collections.sort(entities);
-        for (AbstractOrganism org : entities) {
-            org.action();
+        for (int i = 0; i < max; i++) {
+            entities.get(i).addOneAge();
+            entities.get(i).action();
+        }
+
+        // Remove killed organisms
+        for (int i = 0; i < entities.size(); i++) {
+            if (entities.get(i).isKilled()) {
+                entities.remove(i);
+                --i;
+            }
         }
 
         displayWorld();
@@ -87,6 +95,7 @@ public abstract class AbstractWorld implements World {
 
     // NOTIFICATIONS
     private void clearNotifications() {
+        window.stopNotifications();
         notifications.clear();
     }
     @Override
@@ -95,6 +104,9 @@ public abstract class AbstractWorld implements World {
     }
     @Override
     public void addPriorityNotification(String str) {
+        window.stopNotifications();
         notifications.addFirst(str);
+
+        window.displayNotification(notifications);
     }
 }

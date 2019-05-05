@@ -19,17 +19,40 @@ public abstract class Animal extends AbstractOrganism {
      */
     private void travel(Field field, Directions direction) {
         Field target = field.getNeighbour(direction);
+        previous_x = x;
+        previous_y = y;
 
         if (target != null) {
-            if (target.isEmpty()) {     // move to empty field
-                field.setOrganism(null);
-                target.setOrganism(this);
+            this.x = target.getX();
+            this.y = target.getY();
+            field.setOrganism(null);
 
-                this.x = target.getX();
-                this.y = target.getY();
-            }   // TODO else collision etc.
+            if (target.isEmpty()) {     // move to empty field
+                target.setOrganism(this);
+            } else if (target.getOrganism().getKind() == this.kind) {
+                this.breed(target.getOrganism());
+            }
+            else {
+                collision(target.getOrganism());
+            }
         }
         // else - target is out of board
+    }
+
+    private void breed(AbstractOrganism other) {
+        AbstractOrganism new_org;
+        this.setPreviousXY();
+
+        Field field = world.getField(other.getX(), other.getY());
+
+        if(field.hasEmptyNeighbour())
+            field = field.randomNeighbour();    // empty field within board for new organism
+        else
+            return;     // no breed if 'other' doesn't have empty neighbour
+
+        new_org = (AbstractOrganism)other.createNewInstance(field.getX(), field.getY(), other.world);
+        world.addOrganism(new_org);
+        world.addNotification(this + ": Zwierzę się rozmnożyło.");
     }
 
     @Override

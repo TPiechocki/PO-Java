@@ -9,13 +9,15 @@ import pl.piechocki.po.World.SquareWorld;
 import pl.piechocki.po.World.World;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 /**
  * General app controler
  */
-public class Game implements MouseListener {
+public class Game implements ActionListener {
     private World world;
 
     Game() {
@@ -23,45 +25,23 @@ public class Game implements MouseListener {
         world.setListeners(this);
 
         world.addOrganism(new Sheep(0,0, world));
+        world.addOrganism(new Sheep(1,0, world));
 
         world.displayWorld();
     }
 
-    /**
-     * Catch mouse events
-     */
     @Override
-    public void mouseClicked(MouseEvent e) {
-        JButton button = (JButton)e.getSource();
+    public void actionPerformed(ActionEvent e) {
+        Object obj = e.getSource();
+        String name = "";
 
-        String name = button.getName();
-
-        if (SwingUtilities.isLeftMouseButton(e)) {
-            if (name.equals("turn")) {
-                world.makeTurn();
-            }
+        if (obj instanceof JButton) {
+            JButton button = (JButton) obj;
+             name = button.getName();
         }
-    }
 
-
-    // EMPTY FUNCTIONS
-    @Override
-    public void mousePressed(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent mouseEvent) {
-
+        if (name.equals("turn")) {
+            world.makeTurn();
+        }
     }
 }

@@ -4,7 +4,7 @@
 
 package pl.piechocki.po.World.Field;
 
-import pl.piechocki.po.Organisms.Organism;
+import pl.piechocki.po.Organisms.AbstractOrganism;
 import pl.piechocki.po.World.Directions.Directions;
 
 import java.awt.*;
@@ -36,7 +36,12 @@ public interface Field {
      * Set organism on the field
      * @param org organism to insert
      */
-    void setOrganism(Organism org);
+    void setOrganism(AbstractOrganism org);
+
+    /**
+     * @return organism from that field
+     */
+    AbstractOrganism getOrganism();
 
     int getX();
 
@@ -54,9 +59,19 @@ public interface Field {
     Field[] getFullNeighbours();
 
     /**
-     * @return random full neighbour
+     * @return random full neighbour(neighbour inside board)
      */
     Field randomNeighbour();
+
+    /**
+     * Check if field has empty neighbour(neighbour within board without organism on it)
+     */
+    boolean hasEmptyNeighbour();
+
+    /**
+     * @return random neighbouring field without organism
+     */
+    Field randomEmptyNeighbour();
 
     Directions getDirection();
 }

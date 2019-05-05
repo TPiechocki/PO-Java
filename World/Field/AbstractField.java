@@ -4,6 +4,7 @@
 
 package pl.piechocki.po.World.Field;
 
+import pl.piechocki.po.Organisms.AbstractOrganism;
 import pl.piechocki.po.Organisms.Organism;
 import pl.piechocki.po.World.Directions.Directions;
 
@@ -14,7 +15,7 @@ public abstract class AbstractField implements Field {
     int x, y;       // coordinates
     int full_neighbours;     // amount neighbouring fields inside board
     Field[] neighbours;
-    Organism org;
+    AbstractOrganism org;
     Directions direction;
 
     AbstractField(int x, int y) {
@@ -54,8 +55,13 @@ public abstract class AbstractField implements Field {
     }
 
     @Override
-    public void setOrganism(Organism org) {
+    public void setOrganism(AbstractOrganism org) {
         this.org = org;
+    }
+
+    @Override
+    public AbstractOrganism getOrganism() {
+        return org;
     }
 
     @Override
@@ -81,6 +87,7 @@ public abstract class AbstractField implements Field {
         for (int i = 0; i < direction.getNumberOfDirections(); i++) {
             if (neighbours[i] != null) {
                 temp[index] = neighbours[i];
+                index++;
             }
         }
 
@@ -94,7 +101,31 @@ public abstract class AbstractField implements Field {
         return full[new Random().nextInt(full_neighbours)];
     }
 
+    @Override
+    public boolean hasEmptyNeighbour() {
+        for (int i = 0; i < direction.getNumberOfDirections(); i++) {
+            if (neighbours[i] != null && neighbours[i].isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
+    @Override
+    public Field randomEmptyNeighbour() {
+        int index = 0;
+        Field[] temp = new Field[full_neighbours];
+        for (int i = 0; i < direction.getNumberOfDirections(); i++) {
+            if (neighbours[i] != null) {
+                temp[index] = neighbours[i];
+                index++;
+            }
+        }
+
+        return temp[new Random().nextInt(index)];
+    }
+
+    @Override
     public Directions getDirection() {
         return direction;
     }

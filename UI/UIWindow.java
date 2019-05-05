@@ -58,11 +58,22 @@ public class UIWindow extends JFrame {
         }
     }
 
+    /**
+     * Stop displaying notifications so list can be modified
+     */
+    public void stopNotifications() {
+        notifications.stopNotifications();
+    }
+
+    /**
+     * Display notifications
+     * @param msg list of notifications
+     */
     public void displayNotification(LinkedList<String> msg) {
         notifications.renderNotifications(msg);
     }
 
     public void setListeners(Game game) {
-        panel.turn_button.addMouseListener(game);
+        panel.turn_button.addActionListener(game);
     }
 }
