@@ -5,6 +5,7 @@
 package pl.piechocki.po.UI;
 
 import pl.piechocki.po.Game;
+import pl.piechocki.po.Organisms.Player;
 import pl.piechocki.po.World.Field.Field;
 
 import javax.swing.*;
@@ -19,7 +20,7 @@ public class UIWindow extends JFrame {
     private int WINDOW_HEIGHT = 720;
     private int WINDOW_WIDTH = 1280;
 
-    private UISquareBoard board;
+    private UIBoard board;
     private UIInfo panel;
     private UINotifications notifications;
 
@@ -45,6 +46,10 @@ public class UIWindow extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+    }
+
+    public void closeWindow() {
+        setVisible(false);
     }
 
     /**
@@ -75,5 +80,11 @@ public class UIWindow extends JFrame {
 
     public void setListeners(Game game) {
         panel.turn_button.addActionListener(game);
+        panel.new_button.addActionListener(game);
+    }
+
+    public void setPlayer(Player player) {
+        board.player = player;
+        board.setBindings();
     }
 }

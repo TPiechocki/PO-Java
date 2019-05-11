@@ -6,6 +6,7 @@ package pl.piechocki.po.World;
 
 import pl.piechocki.po.Game;
 import pl.piechocki.po.Organisms.AbstractOrganism;
+import pl.piechocki.po.Organisms.Player;
 import pl.piechocki.po.UI.UIWindow;
 import pl.piechocki.po.World.Field.Field;
 
@@ -29,6 +30,8 @@ public abstract class AbstractWorld implements World {
         entities = new ArrayList<>();
 
         notifications = new LinkedList<>();
+
+
     }
     @Override
     public void setNeighbours() {
@@ -53,8 +56,11 @@ public abstract class AbstractWorld implements World {
         // Sort and do actino for living organisms. New ones will be added at the end and their action will be skipped.
         Collections.sort(entities);
         for (int i = 0; i < max; i++) {
-            entities.get(i).addOneAge();
-            entities.get(i).action();
+            if (!(entities.get(i).isKilled())) {
+                entities.get(i).addOneAge();
+                entities.get(i).action();
+                System.out.println(entities.get(i).toString());
+            }
         }
 
         // Remove killed organisms
@@ -75,6 +81,17 @@ public abstract class AbstractWorld implements World {
     }
 
     @Override
+    public void closeWindow() {
+        window.closeWindow();
+    }
+
+    @Override
+    public void displayNotifications() {
+        //window.stopNotifications();
+        window.displayNotification(notifications);
+    }
+
+    @Override
     public void addOrganism(AbstractOrganism org) {
         entities.add(org);
 
@@ -88,10 +105,14 @@ public abstract class AbstractWorld implements World {
     }
 
     @Override
+    public void setPlayer(Player player) {
+        window.setPlayer(player);
+    }
+
+    @Override
     public Field getField(int x, int y) {
         return fields[x][y];
     }
-
 
     // NOTIFICATIONS
     private void clearNotifications() {
@@ -102,9 +123,15 @@ public abstract class AbstractWorld implements World {
     public void addNotification(String str) {
         notifications.addLast(str);
     }
+
+    @Override
+    public void stopNotifications() {
+        window.stopNotifications();
+    }
+
     @Override
     public void addPriorityNotification(String str) {
-        window.stopNotifications();
+        stopNotifications();
         notifications.addFirst(str);
 
         window.displayNotification(notifications);

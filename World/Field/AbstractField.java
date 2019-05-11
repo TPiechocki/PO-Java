@@ -116,7 +116,7 @@ public abstract class AbstractField implements Field {
         int index = 0;
         Field[] temp = new Field[full_neighbours];
         for (int i = 0; i < direction.getNumberOfDirections(); i++) {
-            if (neighbours[i] != null) {
+            if (neighbours[i] != null && neighbours[i].isEmpty()) {
                 temp[index] = neighbours[i];
                 index++;
             }

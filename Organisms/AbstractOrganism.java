@@ -4,6 +4,7 @@
 
 package pl.piechocki.po.Organisms;
 
+import pl.piechocki.po.World.Directions.Directions;
 import pl.piechocki.po.World.Field.Field;
 import pl.piechocki.po.World.World;
 
@@ -13,6 +14,7 @@ public abstract class AbstractOrganism implements Organism, Comparable<Organism>
     protected int initiative, strength, age;
     protected boolean killed;
     protected World world;
+    protected Directions direction;
 
     protected void kill() {
         this.killed = true;
@@ -23,6 +25,7 @@ public abstract class AbstractOrganism implements Organism, Comparable<Organism>
         this.y = y;
         this.world = world;
         killed = false;
+        direction = world.getField(x,y).getDirection();
     }
 
     /**
@@ -74,9 +77,9 @@ public abstract class AbstractOrganism implements Organism, Comparable<Organism>
     @Override
     public int compareTo(Organism org) {
         if (this.getInitiative() != org.getInitiative())
-            return this.getInitiative() - org.getInitiative();
+            return org.getInitiative() - this.getInitiative();
         else
-            return this.getAge() - org.getAge();
+            return  org.getAge() - this.getAge();
     }
 
 
@@ -94,6 +97,11 @@ public abstract class AbstractOrganism implements Organism, Comparable<Organism>
     @Override
     public int getInitiative() {
         return initiative;
+    }
+
+    @Override
+    public Directions getDirection() {
+        return direction;
     }
 
     @Override

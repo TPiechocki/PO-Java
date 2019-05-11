@@ -49,7 +49,7 @@ class UINotifications extends JPanel  implements Runnable {
         if (worker != null && worker.isAlive()) {
             finishWork = true;
             worker.interrupt();
-            while (finishWork) {
+            while (finishWork && worker.isAlive()) {
                 Thread.onSpinWait();
             }
         }
@@ -59,7 +59,7 @@ class UINotifications extends JPanel  implements Runnable {
         stopNotifications();
 
         messages = msg;
-
+        finishWork = false;
         worker = new Thread(this, threadName);
         worker.start();
 

@@ -17,7 +17,7 @@ public abstract class Animal extends AbstractOrganism {
      * @param field where organism is now
      * @param direction of move
      */
-    private void travel(Field field, Directions direction) {
+    protected void travel(Field field, Directions direction) {
         Field target = field.getNeighbour(direction);
         previous_x = x;
         previous_y = y;
@@ -33,7 +33,7 @@ public abstract class Animal extends AbstractOrganism {
                 this.breed(target.getOrganism());
             }
             else {
-                collision(target.getOrganism());
+                target.getOrganism().collision(this);
             }
         }
         // else - target is out of board
@@ -46,7 +46,7 @@ public abstract class Animal extends AbstractOrganism {
         Field field = world.getField(other.getX(), other.getY());
 
         if(field.hasEmptyNeighbour())
-            field = field.randomNeighbour();    // empty field within board for new organism
+            field = field.randomEmptyNeighbour();    // empty field within board for new organism
         else
             return;     // no breed if 'other' doesn't have empty neighbour
 

@@ -4,6 +4,7 @@
 
 package pl.piechocki.po.Organisms;
 
+import pl.piechocki.po.World.Directions.Directions;
 import pl.piechocki.po.World.World;
 
 import java.awt.*;
@@ -21,12 +22,11 @@ public interface Organism {
     Color color();
 
     int getX();
-
     int getY();
-
     int getInitiative();
-
     int getStrength();
+    Directions getDirection();
+
     /**
      * Change strength by x value
      */

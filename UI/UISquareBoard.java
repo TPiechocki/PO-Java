@@ -7,13 +7,11 @@ package pl.piechocki.po.UI;
 import javax.swing.*;
 import java.awt.*;
 
-class UISquareBoard extends JPanel {
-    int rows, cols;
+import pl.piechocki.po.World.Directions.SquareDirection;
+import pl.piechocki.po.World.Directions.changeDirection;
 
-    private int GRID_BORDER = 1;
 
-    JButton[][] buttons;
-
+class UISquareBoard extends UIBoard {
     UISquareBoard(int x, int y) {
         rows = y;
         cols = x;
@@ -48,7 +46,19 @@ class UISquareBoard extends JPanel {
                 add(buttons[i][j]);
             }
         }
+    }
 
+    @Override
+    public void setBindings() {
 
+        this.getInputMap(MAP).put(KeyStroke.getKeyStroke("UP"), SquareDirection.NORTH);
+        this.getInputMap(MAP).put(KeyStroke.getKeyStroke("DOWN"), SquareDirection.SOUTH);
+        this.getInputMap(MAP).put(KeyStroke.getKeyStroke("LEFT"), SquareDirection.WEST);
+        this.getInputMap(MAP).put(KeyStroke.getKeyStroke("RIGHT"), SquareDirection.EAST);
+
+        this.getActionMap().put(SquareDirection.NORTH, new changeDirection(player ,SquareDirection.NORTH));
+        this.getActionMap().put(SquareDirection.SOUTH, new changeDirection(player ,SquareDirection.SOUTH));
+        this.getActionMap().put(SquareDirection.WEST, new changeDirection(player ,SquareDirection.WEST));
+        this.getActionMap().put(SquareDirection.EAST, new changeDirection(player ,SquareDirection.EAST));
     }
 }
