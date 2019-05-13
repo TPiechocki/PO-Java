@@ -16,10 +16,6 @@ public abstract class AbstractOrganism implements Organism, Comparable<Organism>
     protected World world;
     protected Directions direction;
 
-    protected void kill() {
-        this.killed = true;
-    }
-
     AbstractOrganism(int x, int y, World world) {
         this.x = x;
         this.y = y;
@@ -42,6 +38,10 @@ public abstract class AbstractOrganism implements Organism, Comparable<Organism>
             world.setOrganismOnBoard(attacker);
             this.kill();
         }
+    }
+
+    public void kill() {
+        this.killed = true;
     }
 
     @Override

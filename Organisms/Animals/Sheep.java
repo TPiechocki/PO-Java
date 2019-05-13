@@ -15,7 +15,7 @@ public class Sheep extends Animal {
     public Sheep(int x, int y, World world) {
         super(x, y, world);
         strength = 4;
-        initiative = 5;
+        initiative = 4;
         kind = Species.SHEEP;
     }
 

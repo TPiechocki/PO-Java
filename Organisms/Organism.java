@@ -40,5 +40,17 @@ public interface Organism {
 
     Species getKind();
 
+    /**
+     * Set organism flag and then organism will be deleted before next turn.
+     */
+    void kill();
+
+    /**
+     * @return value of killed flag
+     */
     boolean isKilled();
+    /**
+     * @return true for animals and false for the rest
+     */
+    boolean isAnimal();
 }

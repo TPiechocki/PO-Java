@@ -62,4 +62,9 @@ public abstract class Animal extends AbstractOrganism {
 
         travel(field, direction);
     }
+
+    @Override
+    public boolean isAnimal() {
+        return true;
+    }
 }

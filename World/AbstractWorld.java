@@ -55,11 +55,11 @@ public abstract class AbstractWorld implements World {
 
         // Sort and do actino for living organisms. New ones will be added at the end and their action will be skipped.
         Collections.sort(entities);
+        //noinspection ForLoopReplaceableByForEach
         for (int i = 0; i < max; i++) {
             if (!(entities.get(i).isKilled())) {
                 entities.get(i).addOneAge();
                 entities.get(i).action();
-                System.out.println(entities.get(i).toString());
             }
         }
 

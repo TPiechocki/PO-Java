@@ -14,7 +14,7 @@ import java.awt.*;
 public class Wolf extends Animal {
     public Wolf(int x, int y, World world) {
         super(x, y, world);
-        initiative = 5; // TODO check these values
+        initiative = 5;
         strength = 9;
         kind = Species.WOLF;
     }

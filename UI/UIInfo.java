@@ -14,12 +14,17 @@ class UIInfo extends JPanel {
     UIInfo() {
         setBackground(new Color(0,0,0,0));
 
+        final JPanel buttons1 = new JPanel(new GridLayout(2,1,2,2));
+        buttons1.setBackground(new Color(0,0,0,0));
+
         turn_button = new JButton("Nowa tura");
         turn_button.setName("turn");
-        add(turn_button);
+        buttons1.add(turn_button);
 
         new_button = new JButton("Nowa gra");
         new_button.setName("new_game");
-        add(new_button);
+        buttons1.add(new_button);
+
+        add(buttons1);
     }
 }

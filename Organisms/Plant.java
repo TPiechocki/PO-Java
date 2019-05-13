@@ -17,7 +17,7 @@ public abstract class Plant extends AbstractOrganism {
         super(x, y, world);
         scatter_possibility = 0.1;
         random_generator = new Random();
-        initiative = 1;     // TODO check value
+        initiative = 0;
     }
 
     @Override
@@ -25,12 +25,16 @@ public abstract class Plant extends AbstractOrganism {
         Field field = world.getField(this.x, this.y);
         field = field.getNeighbour(direction.randomDirection());
 
-        if (field.isEmpty() && random_generator.nextDouble() < scatter_possibility) {
+        if (field != null && field.isEmpty() && random_generator.nextDouble() < scatter_possibility) {
             int new_x = field.getX();
             int new_y = field.getY();
             world.addOrganism((AbstractOrganism) createNewInstance(new_x, new_y, this.world));
             world.addNotification(toString() + ": Roślina się rozprzestrzeniła.");
         }
     }
+
+    @Override
+    public boolean isAnimal() {
+        return false;
+    }
 }
-;
