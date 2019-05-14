@@ -92,6 +92,11 @@ public abstract class AbstractWorld implements World, Serializable {
     }
 
     @Override
+    public void openWindow() {
+        window.openWindow();
+    }
+
+    @Override
     public void displayNotifications() {
         //window.stopNotifications();
         window.displayNotification(notifications);
@@ -121,6 +126,11 @@ public abstract class AbstractWorld implements World, Serializable {
     public void setPlayer(Player player) {
         this.player = player;
         window.setPlayer(player);
+    }
+
+    @Override
+    public Player getPlayer() {
+        return player;
     }
 
     @Override

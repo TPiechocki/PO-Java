@@ -52,6 +52,10 @@ public class UIWindow extends JFrame {
         setVisible(false);
     }
 
+    public void openWindow() {
+        setVisible(true);
+    }
+
     /**
      * Draw fields with proper colouring
      */
@@ -94,6 +98,8 @@ public class UIWindow extends JFrame {
         panel.turn_button.addActionListener(game);
         panel.new_button.addActionListener(game);
         panel.skill.addActionListener(game);
+        panel.save.addActionListener(game);
+        panel.load.addActionListener(game);
     }
 
     public void setPlayer(Player player) {

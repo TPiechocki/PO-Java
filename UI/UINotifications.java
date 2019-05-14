@@ -9,7 +9,7 @@ import java.awt.*;
 import java.util.LinkedList;
 
 class UINotifications extends JPanel  implements Runnable {
-    private Thread worker;
+    private transient Thread worker;
     private String threadName;
     volatile boolean finishWork;
 

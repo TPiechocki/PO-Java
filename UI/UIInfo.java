@@ -13,12 +13,15 @@ class UIInfo extends JPanel {
     JButton turn_button;    // new turn
     JButton new_button;     // new game
     JButton skill;      // for activating skill
+    JButton save;
+    JButton load;
+
     JLabel skill_end;
 
     UIInfo() {
         setBackground(Color.lightGray);
 
-        final JPanel buttons1 = new JPanel(new GridLayout(5,1,2,2));
+        final JPanel buttons1 = new JPanel(new GridLayout(10,1,2,2));
         buttons1.setBackground(new Color(0,0,0,0));
 
         turn_button = new JButton("Nowa tura");
@@ -35,6 +38,14 @@ class UIInfo extends JPanel {
         skill = new JButton("Aktywuj nieśmiertelność");
         skill.setName("skill");
         buttons1.add(skill);
+
+        save = new JButton("Zapisz grę");
+        save.setName("save");
+        buttons1.add(save);
+
+        load = new JButton("Ładuj grę");
+        load.setName("load");
+        buttons1.add(load);
 
         add(buttons1);
     }

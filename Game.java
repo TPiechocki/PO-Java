@@ -21,6 +21,7 @@ import java.util.Random;
 /**
  * General app controler
  */
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class Game implements ActionListener {
     private World world;
     private Player player;
@@ -39,70 +40,70 @@ public class Game implements ActionListener {
         world.setPlayer(player);
         world.addOrganism(player);
 
-        rate = 1 + (world.getSizeX() * world.getSizeY())/200;
-        limit = random.nextInt(2*rate) + 2*rate;
+        rate = 1 + (world.getSizeX() * world.getSizeY()) / 200;
+        limit = random.nextInt(2 * rate) + 2 * rate;
         for (int i = 0; i < limit; i++) {
             temp = world.getRandomEmptyField();
             world.addOrganism(new Sheep(temp.getX(), temp.getY(), world));
         }
 
-        rate = 1 + (world.getSizeX() * world.getSizeY())/400;
-        limit = random.nextInt((int)(1.5*rate)) + 2*rate;
+        rate = 1 + (world.getSizeX() * world.getSizeY()) / 400;
+        limit = random.nextInt((int) (1.5 * rate)) + 2 * rate;
         for (int i = 0; i < limit; i++) {
             temp = world.getRandomEmptyField();
             world.addOrganism(new Wolf(temp.getX(), temp.getY(), world));
         }
 
-        rate = 1 + (world.getSizeX() * world.getSizeY())/300;
-        limit = random.nextInt(2*rate) + 2*rate;
+        rate = 1 + (world.getSizeX() * world.getSizeY()) / 300;
+        limit = random.nextInt(2 * rate) + 2 * rate;
         for (int i = 0; i < limit; i++) {
             temp = world.getRandomEmptyField();
             world.addOrganism(new Fox(temp.getX(), temp.getY(), world));
         }
 
-        rate = 1 + (world.getSizeX() * world.getSizeY())/500;
-        limit = random.nextInt((int)(1.5*rate)) + 2*rate;
+        rate = 1 + (world.getSizeX() * world.getSizeY()) / 500;
+        limit = random.nextInt((int) (1.5 * rate)) + 2 * rate;
         for (int i = 0; i < limit; i++) {
             temp = world.getRandomEmptyField();
             world.addOrganism(new Tortoise(temp.getX(), temp.getY(), world));
         }
 
-        rate = 1 + (world.getSizeX() * world.getSizeY())/300;
-        limit = random.nextInt(2*rate) + 2*rate;
+        rate = 1 + (world.getSizeX() * world.getSizeY()) / 300;
+        limit = random.nextInt(2 * rate) + 2 * rate;
         for (int i = 0; i < limit; i++) {
             temp = world.getRandomEmptyField();
             world.addOrganism(new Antelope(temp.getX(), temp.getY(), world));
         }
 
-        rate = (world.getSizeX() * world.getSizeY())/100;
-        limit = random.nextInt(2*rate) + 2*rate;
+        rate = (world.getSizeX() * world.getSizeY()) / 100;
+        limit = random.nextInt(2 * rate) + 2 * rate;
         for (int i = 0; i < limit; i++) {
             temp = world.getRandomEmptyField();
             world.addOrganism(new Grass(temp.getX(), temp.getY(), world));
         }
 
-        rate = (world.getSizeX() * world.getSizeY())/100;
-        limit = random.nextInt(2*rate) + rate;
+        rate = (world.getSizeX() * world.getSizeY()) / 100;
+        limit = random.nextInt(2 * rate) + rate;
         for (int i = 0; i < limit; i++) {
             temp = world.getRandomEmptyField();
             world.addOrganism(new Dandelion(temp.getX(), temp.getY(), world));
         }
 
-        rate = 1 + (world.getSizeX() * world.getSizeY())/500;
-        limit = random.nextInt(3*rate) + rate;
+        rate = 1 + (world.getSizeX() * world.getSizeY()) / 500;
+        limit = random.nextInt(3 * rate) + rate;
         for (int i = 0; i < limit; i++) {
             temp = world.getRandomEmptyField();
             world.addOrganism(new Guarana(temp.getX(), temp.getY(), world));
         }
 
-        rate = 1 + (world.getSizeX() * world.getSizeY())/500;
-        limit = random.nextInt(2*rate) + rate;
+        rate = 1 + (world.getSizeX() * world.getSizeY()) / 500;
+        limit = random.nextInt(2 * rate) + rate;
         for (int i = 0; i < limit; i++) {
             temp = world.getRandomEmptyField();
             world.addOrganism(new Belladonna(temp.getX(), temp.getY(), world));
         }
 
-        rate = 1 + (world.getSizeX() * world.getSizeY())/1000;
+        rate = 1 + (world.getSizeX() * world.getSizeY()) / 1000;
         limit = rate;
         for (int i = 0; i < limit; i++) {
             temp = world.getRandomEmptyField();
@@ -133,56 +134,74 @@ public class Game implements ActionListener {
 
     Game() {
         newGame();
-
-        try {
-            File file = new File("./test.save");
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            FileOutputStream fileOut = new FileOutputStream(file);
-            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-            objectOut.writeObject(world);
-            objectOut.close();
-            System.out.println("The Object  was succesfully written to a file");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            File file = new File("./test.save");
-
-            FileInputStream fileIn = new FileInputStream(file);
-            ObjectInputStream objectIn = new ObjectInputStream(fileIn);
-            World test = (World)objectIn.readObject();
-            objectIn.close();
-            System.out.println("The Object  was succesfully read");
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         Object obj = e.getSource();
-        String name = "";
+        String name;
 
         if (obj instanceof JButton) {
             JButton button = (JButton) obj;
-             name = button.getName();
+            name = button.getName();
 
-            if (name.equals("turn")) {
-                world.makeTurn();
-            }
+            switch (name) {
+                case "turn":
+                    world.makeTurn();
+                    break;
+                case "new_game":
+                    world.closeWindow();
+                    newGame();
+                    break;
+                case "skill":
+                    player.activateImmortality();
+                    world.refreshInfo();
+                    break;
+                case "save":
+                    try {
+                        String filename = JOptionPane.showInputDialog("Podaj nazwę pliku: ");
+                        File file = new File("saves/" + filename + ".save");
 
-            if (name.equals("new_game")) {
-                world.closeWindow();
-                newGame();
-            }
+                        File dir = new File("./saves");
+                        // create directory for saves
+                        if (!dir.exists())
+                            dir.mkdir();
+                        // create file
+                        if (!file.exists()) {
+                            file.createNewFile();
+                        }
+                        FileOutputStream fileOut = new FileOutputStream(file);
+                        ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+                        world.stopNotifications();
+                        objectOut.writeObject(world);
+                        objectOut.close();
+                    } catch (IOException err) {
+                        err.printStackTrace();
+                    }
+                    break;
+                case "load":
+                    try {
+                        String filename = JOptionPane.showInputDialog("Podaj nazwę pliku: ");
+                        File file = new File("saves/" + filename + ".save");
 
-            if (name.equals("skill")) {
-                player.activateImmortality();
-                world.refreshInfo();
+                        FileInputStream fileIn = new FileInputStream(file);
+                        ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+                        World temp = (World) objectIn.readObject();
+                        objectIn.close();
+                        System.out.println("The Object  was succesfully read");
+
+                        world.closeWindow();
+                        world = temp;
+                        world.openWindow();
+                        world.setListeners(this);
+                        player = world.getPlayer();
+                        world.setPlayer(player);
+
+                        world.displayWorld();
+                    } catch (IOException | ClassNotFoundException err) {
+                        JOptionPane.showMessageDialog(new JFrame(), "Nie udało się otworzyć zapisu", "Load Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    break;
             }
         }
     }

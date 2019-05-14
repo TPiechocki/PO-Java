@@ -27,9 +27,10 @@ public interface World {
      */
     void displayWorld();
     /**
-     * Close window with current world
+     * Close or open window with current world
      */
     void closeWindow();
+    void openWindow();
     /**
      * Display notifications
      */
@@ -55,6 +56,7 @@ public interface World {
      * set player for change direction purpose
      */
     void setPlayer(Player player);
+    Player getPlayer();
 
     /**
      * @return field with given coordinates
