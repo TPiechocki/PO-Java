@@ -63,6 +63,18 @@ public class UIWindow extends JFrame {
         }
     }
 
+    public void refreshInfo() {
+        if (board.player.isImmortalityReady() && !(board.player.isKilled()))
+            panel.skill.setEnabled(true);
+        else
+            panel.skill.setEnabled(false);
+
+        panel.skill_end.setText(board.player.immortaltalityStatus());
+
+        panel.revalidate();
+        panel.repaint();
+    }
+
     /**
      * Stop displaying notifications so list can be modified
      */
@@ -81,6 +93,7 @@ public class UIWindow extends JFrame {
     public void setListeners(Game game) {
         panel.turn_button.addActionListener(game);
         panel.new_button.addActionListener(game);
+        panel.skill.addActionListener(game);
     }
 
     public void setPlayer(Player player) {

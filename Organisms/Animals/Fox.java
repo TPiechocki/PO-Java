@@ -54,7 +54,7 @@ public class Fox extends Animal {
 
     @Override
     public Color color() {
-        return Color.orange;
+        return new Color(0xFF991D);
     }
 
     @Override

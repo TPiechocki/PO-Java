@@ -10,15 +10,20 @@ import pl.piechocki.po.Organisms.Player;
 import pl.piechocki.po.UI.UIWindow;
 import pl.piechocki.po.World.Field.Field;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.Random;
 
-public abstract class AbstractWorld implements World {
+public abstract class AbstractWorld implements World, Serializable {
     int x_size, y_size;
     UIWindow window;
     private ArrayList<AbstractOrganism> entities;
     Field[][] fields;
+
+    private Player player;
+    private Random random;
 
     LinkedList<String> notifications;
 
@@ -31,7 +36,7 @@ public abstract class AbstractWorld implements World {
 
         notifications = new LinkedList<>();
 
-
+        random = new Random();
     }
     @Override
     public void setNeighbours() {
@@ -71,6 +76,7 @@ public abstract class AbstractWorld implements World {
             }
         }
 
+        window.refreshInfo();
         displayWorld();
         window.displayNotification(notifications);
     }
@@ -97,6 +103,13 @@ public abstract class AbstractWorld implements World {
 
         if (fields[org.getX()][org.getY()].isEmpty())
             fields[org.getX()][org.getY()].setOrganism(org);
+
+
+    }
+
+    @Override
+    public void refreshInfo() {
+        window.refreshInfo();
     }
 
     @Override
@@ -106,12 +119,35 @@ public abstract class AbstractWorld implements World {
 
     @Override
     public void setPlayer(Player player) {
+        this.player = player;
         window.setPlayer(player);
     }
 
     @Override
     public Field getField(int x, int y) {
         return fields[x][y];
+    }
+
+    @Override
+    public Field getRandomEmptyField() {
+        Field field;
+        int x,y;
+        do {
+            x = random.nextInt(x_size);
+            y = random.nextInt(y_size);
+            field = getField(x, y);
+        } while (!(field.isEmpty()));
+        return field;
+    }
+
+    @Override
+    public int getSizeX() {
+        return x_size;
+    }
+
+    @Override
+    public int getSizeY() {
+        return y_size;
     }
 
     // NOTIFICATIONS

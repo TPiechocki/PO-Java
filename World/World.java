@@ -37,6 +37,11 @@ public interface World {
     void stopNotifications();
 
     /**
+     * Refresh some info in side panel
+     */
+    void refreshInfo();
+
+    /**
      * Add organism to the entities list.
      */
     void addOrganism(AbstractOrganism org);
@@ -55,6 +60,10 @@ public interface World {
      * @return field with given coordinates
      */
     Field getField(int x, int y);
+    Field getRandomEmptyField();
+
+    int getSizeX();
+    int getSizeY();
 
     void addNotification(String str);
 

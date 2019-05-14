@@ -8,7 +8,9 @@ import pl.piechocki.po.World.Directions.Directions;
 import pl.piechocki.po.World.Field.Field;
 import pl.piechocki.po.World.World;
 
-public abstract class AbstractOrganism implements Organism, Comparable<Organism> {
+import java.io.Serializable;
+
+public abstract class AbstractOrganism implements Organism, Comparable<Organism>, Serializable {
     protected Species kind;
     protected int x, y, previous_x, previous_y;
     protected int initiative, strength, age;

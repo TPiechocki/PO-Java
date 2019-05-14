@@ -56,7 +56,7 @@ public class Antelope extends Animal {
 
     @Override
     public Organism createNewInstance(int x, int y, World world) {
-        return null;
+        return new Antelope(x, y, world);
     }
 
     @Override

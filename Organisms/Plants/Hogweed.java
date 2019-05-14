@@ -30,8 +30,8 @@ public class Hogweed extends Plant {
 
                 world.addNotification(this + " zatruł " + temp);
 
-                temp.kill();
                 world.getField(temp.getX(), temp.getY()).setOrganism(null);
+                temp.kill();
             }
         }
         super.action();

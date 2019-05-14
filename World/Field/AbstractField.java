@@ -9,9 +9,10 @@ import pl.piechocki.po.Organisms.Organism;
 import pl.piechocki.po.World.Directions.Directions;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.Random;
 
-public abstract class AbstractField implements Field {
+public abstract class AbstractField implements Field, Serializable {
     int x, y;       // coordinates
     int full_neighbours;     // amount neighbouring fields inside board
     Field[] neighbours;
