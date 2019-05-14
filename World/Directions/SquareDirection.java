@@ -6,6 +6,7 @@ package pl.piechocki.po.World.Directions;
 
 import java.util.Random;
 
+@SuppressWarnings("FieldCanBeLocal")
 public enum SquareDirection implements Directions {
     NORTH(0,-1),        // 0
     EAST(1,0),          // 1
@@ -13,7 +14,8 @@ public enum SquareDirection implements Directions {
     WEST(-1,0),         // 3
     NONE(0,0);          // -1
 
-    private int x, y;
+    private final int x;
+    private final int y;
     private final int amount = 4;
 
     SquareDirection(int x, int y) {

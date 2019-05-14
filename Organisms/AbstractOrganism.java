@@ -12,11 +12,16 @@ import java.io.Serializable;
 
 public abstract class AbstractOrganism implements Organism, Comparable<Organism>, Serializable {
     protected Species kind;
-    protected int x, y, previous_x, previous_y;
-    protected int initiative, strength, age;
-    protected boolean killed;
-    protected World world;
-    protected Directions direction;
+    protected int x;
+    protected int y;
+    int previous_x;
+    int previous_y;
+    protected int initiative;
+    protected int strength;
+    int age;
+    private boolean killed;
+    protected final World world;
+    Directions direction;
 
     AbstractOrganism(int x, int y, World world) {
         this.x = x;
@@ -101,6 +106,7 @@ public abstract class AbstractOrganism implements Organism, Comparable<Organism>
         return initiative;
     }
 
+    @SuppressWarnings("unused")
     @Override
     public Directions getDirection() {
         return direction;

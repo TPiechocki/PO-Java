@@ -9,6 +9,7 @@ import pl.piechocki.po.World.World;
 
 import java.awt.*;
 
+@SuppressWarnings("unused")
 public interface Organism {
     Organism createNewInstance(int x, int y, World world);
 

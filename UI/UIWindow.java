@@ -17,12 +17,12 @@ public class UIWindow extends JFrame {
     private final String WINDOW_TITLE = "Tomasz Piechocki - 175690";
 
     // Windows dimensions
-    private int WINDOW_HEIGHT = 720;
-    private int WINDOW_WIDTH = 1280;
+    private final int WINDOW_HEIGHT = 720;
+    private final int WINDOW_WIDTH = 1280;
 
     private UIBoard board;
-    private UIInfo panel;
-    private UINotifications notifications;
+    private final UIInfo panel;
+    private final UINotifications notifications;
 
     public UIWindow(boolean square, int x, int y) {
         // window properties
@@ -38,7 +38,7 @@ public class UIWindow extends JFrame {
 
         panel = new UIInfo();
 
-        notifications = new UINotifications(this);
+        notifications = new UINotifications();
 
         add(board, BorderLayout.CENTER);
         add(panel, BorderLayout.EAST);

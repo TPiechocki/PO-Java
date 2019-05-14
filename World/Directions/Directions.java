@@ -23,6 +23,7 @@ public interface Directions {
      */
     Directions getNextDirection();
 
+    @SuppressWarnings("SameReturnValue")
     Directions defaultDirection();
 
     Directions randomDirection();

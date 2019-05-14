@@ -10,8 +10,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class changeDirection extends AbstractAction {
-    private Player player;
-    private Directions direction;
+    private final Player player;
+    private final Directions direction;
 
     public changeDirection(Player player, Directions dir) {
         this.player = player;

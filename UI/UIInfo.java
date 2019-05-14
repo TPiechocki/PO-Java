@@ -4,19 +4,17 @@
 
 package pl.piechocki.po.UI;
 
-import pl.piechocki.po.Organisms.Player;
-
 import javax.swing.*;
 import java.awt.*;
 
 class UIInfo extends JPanel {
-    JButton turn_button;    // new turn
-    JButton new_button;     // new game
-    JButton skill;      // for activating skill
-    JButton save;
-    JButton load;
+    final JButton turn_button;    // new turn
+    final JButton new_button;     // new game
+    final JButton skill;      // for activating skill
+    final JButton save;
+    final JButton load;
 
-    JLabel skill_end;
+    final JLabel skill_end;
 
     UIInfo() {
         setBackground(Color.lightGray);

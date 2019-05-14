@@ -13,6 +13,7 @@ public interface World {
     /**
      * set Neighbours for all fields
      */
+    @SuppressWarnings("unused")
     void setNeighbours();
 
     void setListeners(Game game);

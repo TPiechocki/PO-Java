@@ -14,7 +14,7 @@ import java.awt.*;
 import java.util.Random;
 
 public class Tortoise extends Animal {
-    private Random random;
+    private final Random random;
 
     public Tortoise(int x, int y, World world) {
         super(x, y, world);

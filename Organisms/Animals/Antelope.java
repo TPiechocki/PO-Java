@@ -16,7 +16,7 @@ import java.awt.*;
 import java.util.Random;
 
 public class Antelope extends Animal {
-    private Random random;
+    private final Random random;
 
     public Antelope(int x, int y, World world) {
         super(x, y, world);

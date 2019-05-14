@@ -17,15 +17,16 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public abstract class AbstractWorld implements World, Serializable {
-    int x_size, y_size;
+    final int x_size;
+    final int y_size;
     UIWindow window;
-    private ArrayList<AbstractOrganism> entities;
+    private final ArrayList<AbstractOrganism> entities;
     Field[][] fields;
 
     private Player player;
-    private Random random;
+    private final Random random;
 
-    LinkedList<String> notifications;
+    private final LinkedList<String> notifications;
 
 
     //INIT

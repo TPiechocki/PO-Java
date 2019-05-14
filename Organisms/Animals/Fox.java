@@ -12,7 +12,6 @@ import pl.piechocki.po.World.Field.Field;
 import pl.piechocki.po.World.World;
 
 import java.awt.*;
-import java.util.Random;
 
 public class Fox extends Animal {
 

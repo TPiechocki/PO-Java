@@ -10,10 +10,10 @@ import pl.piechocki.po.World.World;
 import java.util.Random;
 
 public abstract class Plant extends AbstractOrganism {
-    protected double scatter_possibility;
-    private Random random_generator;
+    private final double scatter_possibility;
+    private final Random random_generator;
 
-    public Plant(int x, int y, World world) {
+    protected Plant(int x, int y, World world) {
         super(x, y, world);
         scatter_possibility = 0.1;
         random_generator = new Random();

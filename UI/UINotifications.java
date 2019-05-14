@@ -10,19 +10,17 @@ import java.util.LinkedList;
 
 class UINotifications extends JPanel  implements Runnable {
     private transient Thread worker;
-    private String threadName;
-    volatile boolean finishWork;
+    private final String threadName;
+    private volatile boolean finishWork;
 
     private LinkedList<String> messages;
 
-    JLabel notif;
-    UIWindow window;
+    private final JLabel notif;
 
-    UINotifications(UIWindow window) {
+    UINotifications() {
         setBackground(Color.lightGray);
 
         notif = new JLabel("Hello");
-        this.window = window;
 
         add(notif);
 

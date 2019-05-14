@@ -9,7 +9,7 @@ import pl.piechocki.po.World.Field.Field;
 import pl.piechocki.po.World.World;
 
 public abstract class Animal extends AbstractOrganism {
-    public Animal(int x, int y, World world) {
+    protected Animal(int x, int y, World world) {
         super(x, y, world);
     }
 
