@@ -100,6 +100,10 @@ public class UIWindow extends JFrame {
         panel.skill.addActionListener(game);
         panel.save.addActionListener(game);
         panel.load.addActionListener(game);
+
+        for (int i = 0; i < board.cols; i++)
+            for (int j = 0; j < board.rows; j++)
+                board.buttons[i][j].addActionListener(game);
     }
 
     public void setPlayer(Player player) {

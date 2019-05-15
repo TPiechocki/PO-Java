@@ -25,6 +25,8 @@ class UISquareBoard extends UIBoard {
             for (int i = 0; i < cols; i++) {
                 buttons[i][j] = new JButton("");
 
+                buttons[i][j].setName(i + "," + j);
+
                 int top = GRID_BORDER;
                 int bot = GRID_BORDER;
                 int left = GRID_BORDER;

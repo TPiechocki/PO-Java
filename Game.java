@@ -202,6 +202,54 @@ public class Game implements ActionListener {
                         JOptionPane.showMessageDialog(new JFrame(), "Nie udało się otworzyć zapisu", "Load Error", JOptionPane.ERROR_MESSAGE);
                     }
                     break;
+
+                    default:
+                        String[] coord = name.split(",");
+                        int x = Integer.parseInt(coord[0]);
+                        int y = Integer.parseInt(coord[1]);
+
+                        String[] possibilites = {"Owca", "Wilk", "Lis", "Żółw", "Antylopa", "Trawa", "Mlecz", "Guarana", "Wilcza Jagoda", "Barszcz Sosnowskiego"};
+
+                        Field field = world.getField(x, y);
+
+                        if (field.isEmpty()) {
+                            String choice = (String)JOptionPane.showInputDialog(null, null, "Nowe zwierzę", JOptionPane.PLAIN_MESSAGE,
+                                    null,   possibilites, 0);
+
+                            switch (choice) {
+                                case "Owca":
+                                    world.addOrganism(new Sheep(x, y, world));
+                                    break;
+                                case "Wilk":
+                                    world.addOrganism(new Wolf(x, y, world));
+                                    break;
+                                case "Lis":
+                                    world.addOrganism(new Fox(x, y, world));
+                                    break;
+                                case "Żółw":
+                                    world.addOrganism(new Tortoise(x, y, world));
+                                    break;
+                                case "Antylopa":
+                                    world.addOrganism(new Antelope(x, y, world));
+                                    break;
+                                case "Trawa":
+                                    world.addOrganism(new Grass(x, y, world));
+                                    break;
+                                case "Mlecz":
+                                    world.addOrganism(new Dandelion(x, y, world));
+                                    break;
+                                case "Guarana":
+                                    world.addOrganism(new Guarana(x, y, world));
+                                    break;
+                                case "Wilcza Jagoda":
+                                    world.addOrganism(new Belladonna(x, y, world));
+                                    break;
+                                case "Barszcz Sosnowskiego":
+                                    world.addOrganism(new Hogweed(x, y, world));
+                                    break;
+                            }
+                        }
+                        world.displayWorld();
             }
         }
     }
