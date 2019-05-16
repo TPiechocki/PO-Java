@@ -43,7 +43,8 @@ public abstract class AbstractWorld implements World, Serializable {
     public void setNeighbours() {
         for (int j = 0; j < y_size; j++) {
             for (int i = 0; i < x_size; i++) {
-                fields[i][j].setNeighbours(fields, x_size, y_size);
+                if(fields[i][j] != null)
+                    fields[i][j].setNeighbours(fields, x_size, y_size);
             }
         }
     }
@@ -147,7 +148,7 @@ public abstract class AbstractWorld implements World, Serializable {
             x = random.nextInt(x_size);
             y = random.nextInt(y_size);
             field = getField(x, y);
-        } while (!(field.isEmpty()));
+        } while (field == null || !(field.isEmpty()));
         return field;
     }
 

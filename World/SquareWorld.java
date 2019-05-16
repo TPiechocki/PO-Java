@@ -20,6 +20,6 @@ public class SquareWorld extends AbstractWorld {
         }
         setNeighbours();
 
-        window = new UIWindow(true, x_size, y_size);
+        window = new UIWindow(true, x_size, y_size, fields);
     }
 }

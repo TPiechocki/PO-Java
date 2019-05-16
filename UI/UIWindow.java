@@ -20,11 +20,11 @@ public class UIWindow extends JFrame {
     private final int WINDOW_HEIGHT = 720;
     private final int WINDOW_WIDTH = 1280;
 
-    private UIBoard board;
+    private final UIBoard board;
     private final UIInfo panel;
     private final UINotifications notifications;
 
-    public UIWindow(boolean square, int x, int y) {
+    public UIWindow(boolean square, int x, int y, Field[][] fields) {
         // window properties
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setTitle(WINDOW_TITLE);
@@ -35,6 +35,8 @@ public class UIWindow extends JFrame {
 
         if (square)
             board = new UISquareBoard(x, y);
+        else
+            board = new UIHexBoard(x, y, fields);
 
         panel = new UIInfo();
 
@@ -62,7 +64,13 @@ public class UIWindow extends JFrame {
     public void drawFields(Field[][] fields) {
         for (int y = 0; y < board.rows; y++) {
             for (int x = 0; x < board.cols; x++) {
-                board.buttons[x][y].setBackground(fields[x][y].color());
+                if (board.buttons[x][y] != null)
+                    if (board instanceof UIHexBoard) {
+                        repaint();
+                        return;
+                    }
+                    else
+                        board.buttons[x][y].setBackground(fields[x][y].color());
             }
         }
     }
@@ -103,7 +111,8 @@ public class UIWindow extends JFrame {
 
         for (int i = 0; i < board.cols; i++)
             for (int j = 0; j < board.rows; j++)
-                board.buttons[i][j].addActionListener(game);
+                if (board.buttons[i][j] != null)
+                    board.buttons[i][j].addActionListener(game);
     }
 
     public void setPlayer(Player player) {

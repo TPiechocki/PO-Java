@@ -20,7 +20,7 @@ class UISquareBoard extends UIBoard {
 
         setLayout(new GridLayout(rows, cols,0,0));
 
-        buttons = new JButton[rows][cols];
+        buttons = new JButton[cols][rows];
         for (int j = 0; j < rows; j++) {
             for (int i = 0; i < cols; i++) {
                 buttons[i][j] = new JButton("");

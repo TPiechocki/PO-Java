@@ -8,6 +8,7 @@ import pl.piechocki.po.Organisms.Animals.*;
 import pl.piechocki.po.Organisms.Plants.*;
 import pl.piechocki.po.Organisms.Player;
 import pl.piechocki.po.World.Field.Field;
+import pl.piechocki.po.World.HexWorld;
 import pl.piechocki.po.World.SquareWorld;
 import pl.piechocki.po.World.World;
 
@@ -15,6 +16,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.util.Objects;
 import java.util.Random;
 
 
@@ -27,7 +29,38 @@ public class Game implements ActionListener {
     private Player player;
 
     private void newGame() {
-        world = new SquareWorld(20, 20);
+        int x = 0, y = 0;
+        String type;
+
+        do {
+            String temp = JOptionPane.showInputDialog("Podaj szerokość planszy (10-40)");
+            if (temp != null && temp.matches("-?\\d+(\\.\\d+)?"))
+                x = Integer.parseInt(temp);
+        } while(x < 10 || x > 40 );
+        do {
+            String temp = JOptionPane.showInputDialog("Podaj wysokość planszy (10-30)");
+            if (temp != null && temp.matches("-?\\d+(\\.\\d+)?"))
+                y = Integer.parseInt(temp);
+        } while(y < 10 || y > 30);
+
+        String[] possibilites = {"Prostokąty", "Sześciokąty"};
+        do {
+            type = null;
+            int n = JOptionPane.showOptionDialog(null, "Jakiego kształtu mają być pola?",
+                    "Rodzaj planszy",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, possibilites, possibilites[0]);
+            if (n >= 0 && n <= 1)
+                type = possibilites[n];
+        } while (type == null);
+
+        if (Objects.equals(type, "Prostokąty"))
+            world = new SquareWorld(x, y);
+        else {
+            if (x > y)
+                //noinspection SuspiciousNameCombination
+                x = y;
+            world = new HexWorld(x, y);
+        }
         world.setListeners(this);
 
         Field temp;     // temporary empty field
@@ -215,38 +248,39 @@ public class Game implements ActionListener {
                         if (field.isEmpty()) {
                             String choice = (String)JOptionPane.showInputDialog(null, null, "Nowe zwierzę", JOptionPane.PLAIN_MESSAGE,
                                     null,   possibilites, 0);
-
-                            switch (choice) {
-                                case "Owca":
-                                    world.addOrganism(new Sheep(x, y, world));
-                                    break;
-                                case "Wilk":
-                                    world.addOrganism(new Wolf(x, y, world));
-                                    break;
-                                case "Lis":
-                                    world.addOrganism(new Fox(x, y, world));
-                                    break;
-                                case "Żółw":
-                                    world.addOrganism(new Tortoise(x, y, world));
-                                    break;
-                                case "Antylopa":
-                                    world.addOrganism(new Antelope(x, y, world));
-                                    break;
-                                case "Trawa":
-                                    world.addOrganism(new Grass(x, y, world));
-                                    break;
-                                case "Mlecz":
-                                    world.addOrganism(new Dandelion(x, y, world));
-                                    break;
-                                case "Guarana":
-                                    world.addOrganism(new Guarana(x, y, world));
-                                    break;
-                                case "Wilcza Jagoda":
-                                    world.addOrganism(new Belladonna(x, y, world));
-                                    break;
-                                case "Barszcz Sosnowskiego":
-                                    world.addOrganism(new Hogweed(x, y, world));
-                                    break;
+                            if (choice != null) {   // null if the user canceled choice
+                                switch (choice) {
+                                    case "Owca":
+                                        world.addOrganism(new Sheep(x, y, world));
+                                        break;
+                                    case "Wilk":
+                                        world.addOrganism(new Wolf(x, y, world));
+                                        break;
+                                    case "Lis":
+                                        world.addOrganism(new Fox(x, y, world));
+                                        break;
+                                    case "Żółw":
+                                        world.addOrganism(new Tortoise(x, y, world));
+                                        break;
+                                    case "Antylopa":
+                                        world.addOrganism(new Antelope(x, y, world));
+                                        break;
+                                    case "Trawa":
+                                        world.addOrganism(new Grass(x, y, world));
+                                        break;
+                                    case "Mlecz":
+                                        world.addOrganism(new Dandelion(x, y, world));
+                                        break;
+                                    case "Guarana":
+                                        world.addOrganism(new Guarana(x, y, world));
+                                        break;
+                                    case "Wilcza Jagoda":
+                                        world.addOrganism(new Belladonna(x, y, world));
+                                        break;
+                                    case "Barszcz Sosnowskiego":
+                                        world.addOrganism(new Hogweed(x, y, world));
+                                        break;
+                                }
                             }
                         }
                         world.displayWorld();
